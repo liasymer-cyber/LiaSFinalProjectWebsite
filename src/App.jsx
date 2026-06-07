@@ -37,8 +37,8 @@ function Hero() {
         </div>
         <div className="hero-meta-divider" />
         <div className="hero-meta-item">
-          <span className="hero-meta-num">2</span>
-          <span className="hero-meta-label">sentiment methods</span>
+          <span className="hero-meta-num">+5.7</span>
+          <span className="hero-meta-label">DiD estimate (per 100k)</span>
         </div>
       </div>
       <div className="hero-actions">
@@ -77,6 +77,12 @@ function Question() {
           <div className="q-num">Q2</div>
           <div>
             <p>Did the <strong>sentiment of news headlines</strong> about sexual assault shift after October 2017, toward less negative or more survivor-centered framing?</p>
+          </div>
+        </div>
+        <div className="q-card">
+          <div className="q-num">Q3</div>
+          <div>
+            <p>Did rape reporting rise <strong>more than other violent crimes</strong> after October 2017 — isolating a MeToo-specific effect from general trends?</p>
           </div>
         </div>
       </div>
@@ -163,6 +169,9 @@ function Data() {
               ['llmscore', 'LLM (llama3.2) sentiment score (−1 to +1); −1 = very negative/victim-blaming, +1 = empowering/survivor-centered'],
               ['before', 'Oct 17, 2016 – Oct 16, 2017 (pre-#MeToo period)'],
               ['after', 'Oct 17, 2017 – Oct 16, 2018 (post-#MeToo period)'],
+              ['crime_type', 'One of: rape, murder, robbery, aggravated_assault (DiD)'],
+              ['is_rape', '1 if crime_type == rape, 0 otherwise — DiD treatment indicator'],
+              ['post', '1 if year ≥ 2018 — DiD post-treatment indicator'],
             ].map(([v, d]) => (
               <tr key={v}>
                 <td><code>{v}</code></td>
@@ -225,6 +234,17 @@ function Methods() {
             </p>
           </div>
         </div>
+        <div className="method-step">
+          <div className="step-num">06</div>
+          <div>
+            <h3>Difference-in-Differences (DiD)</h3>
+            <p>
+              A long panel of four violent crime types (rape, murder, robbery, aggravated assault) across all 50 states was constructed. The FBI's removal of the legacy rape definition column starting in 2017 shifts robbery and aggravated assault left by two column positions; column indices are determined dynamically per file to recover consistent series across all years.
+              <br /><br />
+              The estimating equation is: <code>rate ~ post × is_rape + C(state_crime) + C(year)</code>, where <code>state_crime</code> is a state×crime-type fixed effect absorbing all time-invariant differences between states and crime types. The coefficient on <code>post × is_rape</code> captures the differential post-2017 change in rape reporting relative to the simultaneous change in other violent crimes. A murder-only robustness check and an event study (year × is_rape interactions, 2017 omitted as baseline) were also estimated. HC3 robust standard errors throughout.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -239,7 +259,7 @@ function Results() {
   return (
     <section id="results">
       <div className="section-label">The Results</div>
-      <h2 className="section-title">Two significant findings</h2>
+      <h2 className="section-title">Three significant findings</h2>
 
       {/* Finding 1 */}
       <div className="finding-card">
@@ -274,9 +294,95 @@ function Results() {
         </div>
       </div>
 
-      {/* Finding 2 */}
+      {/* Finding 2 — DiD */}
       <div className="finding-card" style={{ marginTop: '1.5rem' }}>
-        <div className="finding-num">Finding 02 — Media Sentiment</div>
+        <div className="finding-num">Finding 02 — Difference-in-Differences</div>
+        <h3>Rape reporting rose significantly more than other violent crimes after MeToo</h3>
+        <p>
+          Using murder, robbery, and aggravated assault as control outcomes — all facing
+          the same macro reporting environment — the DiD estimate is <strong>+5.71 rapes per 100,000</strong> (p &lt; 0.001).
+          A murder-only robustness check yields a consistent <strong>+4.15</strong> (p &lt; 0.001).
+          Because other violent crimes serve as the counterfactual, this design controls for anything
+          that affected crime reporting broadly (policing policy, economic shocks) and isolates
+          the anomalous increase specific to rape.
+        </p>
+        <p style={{ marginTop: '0.75rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+          The parallel trends assumption was tested on 2014–2017 pre-treatment data and held:
+          rape and other crime rates tracked together before MeToo (p = 0.29), supporting
+          the validity of the design. Pre-treatment event study coefficients cluster near zero;
+          the differential increase is concentrated in 2018–2019.
+        </p>
+        <div className="stat-row">
+          <span className="stat-pill up">+5.71 per 100k (all crimes)</span>
+          <span className="stat-pill up">+4.15 per 100k (murder only)</span>
+          <span className="stat-pill sig">p &lt; 0.001 both specs</span>
+          <span className="stat-pill neutral">1,200 state-crime-years</span>
+        </div>
+
+        <div className="table-wrap" style={{ marginTop: '1.5rem' }}>
+          <div className="table-wrap-title">DiD estimates — rape vs. other violent crimes</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Specification</th>
+                <th>DiD coef. (per 100k)</th>
+                <th>95% CI</th>
+                <th>p-value</th>
+                <th>R²</th>
+                <th>N</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['All crimes (murder + robbery + agg. assault)', '+5.71', '[+4.30, +7.11]', '< 0.001 ***', '0.985', '1,200'],
+                ['Murder only', '+4.15', '[+2.66, +5.64]', '< 0.001 ***', '0.980', '600'],
+              ].map(([spec, coef, ci, p, r2, n]) => (
+                <tr key={spec}>
+                  <td style={{ color: 'var(--text-heading)', fontWeight: 500 }}>{spec}</td>
+                  <td className="positive">{coef}</td>
+                  <td>{ci}</td>
+                  <td className="positive">{p}</td>
+                  <td>{r2}</td>
+                  <td>{n}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="table-note">
+            Two-way FE DiD: rate ~ post × is_rape + state×crime FE + year FE. HC3 robust SEs.
+            Pre-period parallel trends test: p = 0.29 (no divergence detected).
+          </div>
+        </div>
+
+        <div className="figure-col" style={{ marginTop: '1.5rem' }}>
+          <div className="figure-item">
+            <img src="/did_metoo_rape_rates.png" alt="DiD analysis: crime rate trends and event study" style={{ maxWidth: '100%' }} />
+            <div className="figure-caption">
+              Left: All four violent crime rates indexed to 2014 = 100 — rape diverges upward after 2017.
+              Right: Event study coefficients for rape relative to other violent crimes (baseline = 2017); pre-treatment estimates cluster near zero.
+            </div>
+          </div>
+        </div>
+
+        <div className="method-divergence" style={{ marginTop: '1.5rem' }}>
+          <div className="method-divergence-title">Validity and caveats</div>
+          <p>
+            Aggravated assault is an imperfect control because some domestic violence cases
+            overlap with sexual assault categorization — if MeToo also elevated assault
+            reporting, the DiD understates the true rape effect, making the estimate
+            conservative. Murder is the cleanest control (detected independent of victim
+            reporting), and its consistent result (+4.15) provides reassurance. The design
+            cannot fully rule out confounders coincident with October 2017 (e.g., Title IX
+            policy changes, state-level legal reforms), but the combination of parallel
+            pre-trends, consistent cross-specification results, and a theoretically motivated
+            mechanism supports a cautiously causal interpretation.
+          </p>
+        </div>
+      </div>
+
+      {/* Finding 3 — Media Sentiment */}
+      <div className="finding-card" style={{ marginTop: '1.5rem' }}>
+        <div className="finding-num">Finding 03 — Media Sentiment</div>
         <h3>#MeToo correlated with a shift toward less negative headlines</h3>
         <p>
           Both methods detected a statistically significant positive shift in headline tone
@@ -374,6 +480,7 @@ function Takeaway() {
           <h3>What the data supports</h3>
           <ul className="data-list">
             <li>A sustained, multi-year rise in reported rape rates suggests a possible durable cultural shift in survivors' willingness to come forward.</li>
+            <li>A DiD using other violent crimes as the control finds rape reporting rose +5.7 per 100k more than contemporaneous trends in murder, robbery, and aggravated assault would predict (p &lt; 0.001) — the strongest causal evidence in this analysis.</li>
             <li>Both VADER and LLM methods independently agree: headline framing became measurably less negative after October 2017.</li>
             <li>The shift plausibly reflects more headlines emphasizing accountability and survivor testimony rather than a change in subject matter.</li>
             <li>Effect sizes are small to moderate (r = 0.24 VADER, r = 0.14 LLM) — statistically significant, but modest in absolute terms.</li>
@@ -384,7 +491,7 @@ function Takeaway() {
           <ul className="data-list">
             <li>All findings are <strong>correlational</strong> — the data cannot establish that #MeToo caused these changes.</li>
             <li>Absolute sentiment remained substantially negative throughout — coverage of trauma cannot be made "positive" by a cultural moment.</li>
-            <li>A DiD replication was excluded because rape and murder rates don't satisfy parallel trends, and only annual (not monthly) data was available.</li>
+            <li>The DiD design cannot fully rule out confounders coincident with October 2017 (e.g., Title IX policy changes); the estimate is consistent but not definitively causal.</li>
             <li>UCR captures reported crimes only; 70–80% of rapes are estimated to go unreported entirely.</li>
           </ul>
         </div>
