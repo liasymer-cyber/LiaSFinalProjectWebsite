@@ -502,6 +502,8 @@ function Takeaway() {
             <li>Attempt LLM scoring with more willing models to reduce refusal bias.</li>
             <li>Extend the time window to 2020–2023 to assess whether gains persisted post-pandemic.</li>
             <li>Apply a regression discontinuity design using October 2017 as the cutoff for stronger causal inference.</li>
+            <li>Expand geographic scope to compare U.S. state-level variation in #MeToo media coverage against local rape reporting trends.</li>
+            <li>Conduct survivor surveys or interviews to directly test whether perceived media sentiment affects willingness to report.</li>
           </ul>
         </div>
       </div>
