@@ -5,20 +5,19 @@
 }
 
 :root {
-  --bg: #1a0a3b;
-  --bg-card: #251050;
-  --bg-card-hover: #2e1460;
-  --border: #3d2070;
-  --accent: #9b6dff;
-  --accent-light: #c4a8ff;
-  --accent-dim: rgba(155, 109, 255, 0.13);
-  --text: #e8e0f5;
-  --text-muted: #9987c4;
-  --text-heading: #ffffff;
-  --teal: #c4a8ff;
-  --rose: #ff8fab;
-  --amber: #f5c97a;
-  --green: #7ee8c8;
+  --bg: #f3eeff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8f4ff;
+  --border: #d4c2f5;
+  --accent: #7c3aed;
+  --accent-light: #9d62f5;
+  --accent-dim: rgba(124, 58, 237, 0.08);
+  --text: #3b2a6e;
+  --text-muted: #7c6aaa;
+  --text-heading: #1e0f4a;
+  --rose: #be185d;
+  --amber: #92400e;
+  --green: #065f46;
   --sans: 'Inter', system-ui, sans-serif;
 }
 
@@ -47,6 +46,7 @@ body {
   height: 64px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 var(--border);
 }
 
 .nav-logo {
@@ -317,11 +317,11 @@ section:first-of-type { border-top: none; }
 .data-limit {
   margin-top: 1rem;
   padding: 0.75rem;
-  background: rgba(251, 113, 133, 0.06);
-  border: 1px solid rgba(251, 113, 133, 0.15);
+  background: #fce7f3;
+  border: 1px solid #fbcfe8;
   border-radius: 8px;
   font-size: 0.82rem;
-  color: var(--text-muted);
+  color: #6b2349;
 }
 
 .data-limit-label {
@@ -356,7 +356,7 @@ section:first-of-type { border-top: none; }
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: rgba(255,255,255,0.02);
+  background: #f3eeff;
 }
 
 .var-table td {
@@ -457,21 +457,21 @@ code {
 }
 
 .stat-pill.up {
-  background: rgba(52, 211, 153, 0.1);
+  background: #d1fae5;
   color: var(--green);
-  border: 1px solid rgba(52, 211, 153, 0.25);
+  border: 1px solid #a7f3d0;
 }
 
 .stat-pill.sig {
-  background: rgba(155, 109, 255, 0.1);
-  color: var(--accent-light);
-  border: 1px solid rgba(155, 109, 255, 0.25);
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid #c4b5fd;
 }
 
 .stat-pill.neutral {
-  background: rgba(107, 114, 128, 0.1);
+  background: #ede9fe;
   color: var(--text-muted);
-  border: 1px solid rgba(107, 114, 128, 0.2);
+  border: 1px solid var(--border);
 }
 
 /* Figures */
@@ -490,7 +490,7 @@ code {
 }
 
 .figure-item {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 10px;
   overflow: hidden;
@@ -513,7 +513,7 @@ code {
 
 /* Table */
 .table-wrap {
-  background: rgba(255,255,255,0.02);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
@@ -537,7 +537,7 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-bottom: 1px solid var(--border);
-  background: rgba(255,255,255,0.02);
+  background: #f3eeff;
 }
 
 .table-wrap td {
@@ -557,15 +557,15 @@ code {
   font-style: italic;
 }
 
-.positive { color: var(--green); font-weight: 600; }
+.positive { color: #059669; font-weight: 600; }
 .negative { color: var(--rose); }
 
 .method-divergence {
   margin-top: 1.5rem;
   padding: 1.25rem;
-  background: rgba(56, 189, 248, 0.05);
-  border: 1px solid rgba(56, 189, 248, 0.15);
-  border-left: 3px solid var(--teal);
+  background: #ede9fe;
+  border: 1px solid #c4b5fd;
+  border-left: 3px solid var(--accent);
   border-radius: 10px;
 }
 
@@ -574,7 +574,7 @@ code {
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--accent);
   margin-bottom: 0.5rem;
 }
 
@@ -601,12 +601,12 @@ code {
   margin-bottom: 1rem;
 }
 
-.takeaway-card.green { border-top: 3px solid var(--green); }
-.takeaway-card.green h3 { color: var(--green); }
-.takeaway-card.amber { border-top: 3px solid var(--amber); }
-.takeaway-card.amber h3 { color: var(--amber); }
-.takeaway-card.purple { border-top: 3px solid var(--accent-light); }
-.takeaway-card.purple h3 { color: var(--accent-light); }
+.takeaway-card.green { border-top: 3px solid #059669; }
+.takeaway-card.green h3 { color: #065f46; }
+.takeaway-card.amber { border-top: 3px solid #d97706; }
+.takeaway-card.amber h3 { color: #92400e; }
+.takeaway-card.purple { border-top: 3px solid var(--accent); }
+.takeaway-card.purple h3 { color: var(--accent); }
 
 .data-list { list-style: none; display: grid; gap: 0.75rem; }
 
