@@ -21,7 +21,7 @@ function Hero() {
       <div className="hero-tag">QSS 20 · Dartmouth College · 2026</div>
       <h1>#MeToo, Reporting,<br /><span>and Media Sentiment</span></h1>
       <p className="hero-sub">
-        Did the #MeToo movement change how sexual violence is reported to police—
+        Did the #MeToo movement change how sexual violence is reported to police,
         and how the news covers it? A quantitative analysis of FBI crime data
         and 68,000 news headlines across 2014–2019.
       </p>
@@ -82,7 +82,7 @@ function Question() {
         <div className="q-card">
           <div className="q-num">Q3</div>
           <div>
-            <p>Did rape reporting rise <strong>more than other violent crimes</strong> after October 2017 — isolating a MeToo-specific effect from general trends?</p>
+            <p>Did rape reporting rise <strong>more than other violent crimes</strong> after October 2017 , isolating a MeToo-specific effect from general trends?</p>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ function Question() {
           the first three months after October 2017. A thematic review of 41 articles
           found that rape myths and victim-blaming language remained widespread even
           after the movement. Systematic, quantitative analysis of sentiment across the
-          #MeToo inflection point remained limited — this project extends that work.
+          #MeToo inflection point remained limited , this project extends that work.
         </p>
       </div>
     </section>
@@ -170,8 +170,8 @@ function Data() {
               ['before', 'Oct 17, 2016 – Oct 16, 2017 (pre-#MeToo period)'],
               ['after', 'Oct 17, 2017 – Oct 16, 2018 (post-#MeToo period)'],
               ['crime_type', 'One of: rape, murder, robbery, aggravated_assault (DiD)'],
-              ['is_rape', '1 if crime_type == rape, 0 otherwise — DiD treatment indicator'],
-              ['post', '1 if year ≥ 2018 — DiD post-treatment indicator'],
+              ['is_rape', '1 if crime_type == rape, 0 otherwise , DiD treatment indicator'],
+              ['post', '1 if year ≥ 2018 , DiD post-treatment indicator'],
             ].map(([v, d]) => (
               <tr key={v}>
                 <td><code>{v}</code></td>
@@ -191,7 +191,7 @@ function Methods() {
       <div className="section-label">The Methods</div>
       <h2 className="section-title">How the analysis was done</h2>
       <p className="section-desc">
-        Data cleaning, two sentiment approaches, and two statistical tests — applied to
+        Data cleaning, two sentiment approaches, and two statistical tests , applied to
         crime data and headline data independently.
       </p>
       <div className="method-list">
@@ -213,14 +213,14 @@ function Methods() {
           <div className="step-num">03</div>
           <div>
             <h3>VADER Sentiment</h3>
-            <p>The default VADER lexicon was extended with 14 domain-specific terms to better capture sexual-assault reporting conventions — for example: <em>survivor: +1.0</em>, <em>brave: +2.0</em>, <em>alleged: −1.0</em>, <em>reckoning: +1.0</em>. Applied to all ~68k headlines; compound scores range from −1 to +1.</p>
+            <p>The default VADER lexicon was extended with 14 domain-specific terms to better capture sexual-assault reporting conventions , for example: <em>survivor: +1.0</em>, <em>brave: +2.0</em>, <em>alleged: −1.0</em>, <em>reckoning: +1.0</em>. Applied to all ~68k headlines; compound scores range from −1 to +1.</p>
           </div>
         </div>
         <div className="method-step">
           <div className="step-num">04</div>
           <div>
             <h3>LLM Sentiment (llama3.2 via Ollama)</h3>
-            <p>A random sample of 2,500 pre- and 2,500 post-MeToo headlines were scored via the local Ollama API. Each headline was passed with a structured prompt asking the model to return a single float from −1 (victim-blaming/negative) to +1 (survivor-centered/empowering). Refusals were assigned −1.0 — the model rejected scoring headlines it deemed extremely negative.</p>
+            <p>A random sample of 2,500 pre- and 2,500 post-MeToo headlines were scored via the local Ollama API. Each headline was passed with a structured prompt asking the model to return a single float from −1 (victim-blaming/negative) to +1 (survivor-centered/empowering). Refusals were assigned −1.0 , the model rejected scoring headlines it deemed extremely negative.</p>
           </div>
         </div>
         <div className="method-step">
@@ -263,10 +263,10 @@ function Results() {
 
       {/* Finding 1 */}
       <div className="finding-card">
-        <div className="finding-num">Finding 01 — Crime Data</div>
+        <div className="finding-num">Finding 01: Crime Data</div>
         <h3>Reported rape rates rose 16.4% from 2014 to 2019</h3>
         <p>
-          The mean national rape rate increased from 36.6 to 42.6 per 100,000 residents —
+          The mean national rape rate increased from 36.6 to 42.6 per 100,000 residents ,
           a 16.4% rise over five years. A two-sample t-test comparing 2014–2016
           against 2018–2019 yielded <strong>p = 0.018</strong>. The rise was broadly distributed
           across states rather than driven by a single outlier: Alaska consistently
@@ -274,7 +274,7 @@ function Results() {
         </p>
         <p style={{ marginTop: '0.75rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
           Rather than reflecting an increase in actual assaults, this rise likely reflects
-          increased reporting — consistent with the hypothesis that #MeToo reduced stigma
+          increased reporting , consistent with the hypothesis that #MeToo reduced stigma
           and encouraged survivors to come forward.
         </p>
         <div className="stat-row">
@@ -285,22 +285,22 @@ function Results() {
         <div className="figure-row">
           <div className="figure-item">
             <img src="/2014_rape_rate_by_state.png" alt="Reported rape rate by state in 2014" />
-            <div className="figure-caption">2014 — Three years before #MeToo</div>
+            <div className="figure-caption">2014 , Three years before #MeToo</div>
           </div>
           <div className="figure-item">
             <img src="/2019_rape_rate_by_state.png" alt="Reported rape rate by state in 2019" />
-            <div className="figure-caption">2019 — Two years after #MeToo</div>
+            <div className="figure-caption">2019 , Two years after #MeToo</div>
           </div>
         </div>
       </div>
 
-      {/* Finding 2 — DiD */}
+      {/* Finding 2 , DiD */}
       <div className="finding-card" style={{ marginTop: '1.5rem' }}>
-        <div className="finding-num">Finding 02 — Difference-in-Differences</div>
+        <div className="finding-num">Finding 02: Difference-in-Differences</div>
         <h3>Rape reporting rose significantly more than other violent crimes after MeToo</h3>
         <p>
-          Using murder, robbery, and aggravated assault as control outcomes — all facing
-          the same macro reporting environment — the DiD estimate is <strong>+5.71 rapes per 100,000</strong> (p &lt; 0.001).
+          Using murder, robbery, and aggravated assault as control outcomes , all facing
+          the same macro reporting environment , the DiD estimate is <strong>+5.71 rapes per 100,000</strong> (p &lt; 0.001).
           A murder-only robustness check yields a consistent <strong>+4.15</strong> (p &lt; 0.001).
           Because other violent crimes serve as the counterfactual, this design controls for anything
           that affected crime reporting broadly (policing policy, economic shocks) and isolates
@@ -320,7 +320,7 @@ function Results() {
         </div>
 
         <div className="table-wrap" style={{ marginTop: '1.5rem' }}>
-          <div className="table-wrap-title">DiD estimates — rape vs. other violent crimes</div>
+          <div className="table-wrap-title">DiD estimates , rape vs. other violent crimes</div>
           <table>
             <thead>
               <tr>
@@ -358,7 +358,7 @@ function Results() {
           <div className="figure-item">
             <img src="/did_metoo_rape_rates.png" alt="DiD analysis: crime rate trends and event study" style={{ maxWidth: '100%' }} />
             <div className="figure-caption">
-              Left: All four violent crime rates indexed to 2014 = 100 — rape diverges upward after 2017.
+              Left: All four violent crime rates indexed to 2014 = 100 , rape diverges upward after 2017.
               Right: Event study coefficients for rape relative to other violent crimes (baseline = 2017); pre-treatment estimates cluster near zero.
             </div>
           </div>
@@ -368,7 +368,7 @@ function Results() {
           <div className="method-divergence-title">Validity and caveats</div>
           <p>
             Aggravated assault is an imperfect control because some domestic violence cases
-            overlap with sexual assault categorization — if MeToo also elevated assault
+            overlap with sexual assault categorization , if MeToo also elevated assault
             reporting, the DiD understates the true rape effect, making the estimate
             conservative. Murder is the cleanest control (detected independent of victim
             reporting), and its consistent result (+4.15) provides reassurance. The design
@@ -380,9 +380,9 @@ function Results() {
         </div>
       </div>
 
-      {/* Finding 3 — Media Sentiment */}
+      {/* Finding 3 , Media Sentiment */}
       <div className="finding-card" style={{ marginTop: '1.5rem' }}>
-        <div className="finding-num">Finding 03 — Media Sentiment</div>
+        <div className="finding-num">Finding 03: Media Sentiment</div>
         <h3>#MeToo correlated with a shift toward less negative headlines</h3>
         <p>
           Both methods detected a statistically significant positive shift in headline tone
@@ -392,7 +392,7 @@ function Results() {
           the Taylor Swift groping trial verdict (August 14, 2017).
         </p>
         <p style={{ marginTop: '0.75rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-          Absolute scores remained substantially negative throughout — no cultural moment
+          Absolute scores remained substantially negative throughout , no cultural moment
           makes coverage of trauma "positive." The upward shift likely reflects more headlines
           emphasizing accountability or survivor testimony, rather than a change in the
           underlying subject matter.
@@ -441,11 +441,11 @@ function Results() {
         <div className="figure-col">
           <div className="figure-item">
             <img src="/meanheadlinesentimentvader.png" alt="Mean headline sentiment over time using VADER" />
-            <div className="figure-caption">Mean headline sentiment over time — VADER analysis (n ≈ 68k)</div>
+            <div className="figure-caption">Mean headline sentiment over time , VADER analysis (n ≈ 68k)</div>
           </div>
           <div className="figure-item">
             <img src="/meanheadlinesentimentllm.png" alt="Mean headline sentiment over time using LLM" />
-            <div className="figure-caption">Mean headline sentiment over time — LLM analysis (llama3.2, n = 5,000 sample)</div>
+            <div className="figure-caption">Mean headline sentiment over time , LLM analysis (llama3.2, n = 5,000 sample)</div>
           </div>
         </div>
 
@@ -454,7 +454,7 @@ function Results() {
           <p>
             VADER, even with domain lexicon customization, tends to score headlines as negative
             because sexual-assault reporting contains inherently negative words. The LLM can
-            distinguish framing — a headline like "Survivor speaks out against abuser" would
+            distinguish framing , a headline like "Survivor speaks out against abuser" would
             receive a more positive score from the LLM than from VADER. However, the LLM's
             refusal to score the most graphically negative content (coded as −1.0) likely inflates
             apparent negativity in the LLM baseline, making the post-MeToo shift look larger.
@@ -469,28 +469,28 @@ function Takeaway() {
   return (
     <section id="takeaway">
       <div className="section-label">The Takeaway</div>
-      <h2 className="section-title">What this means—and what's still unknown</h2>
+      <h2 className="section-title">What this means,and what's still unknown</h2>
       <p className="section-desc">
         Taken together, the results paint a consistent picture: #MeToo was associated
         with a measurable increase in reported rape rates <em>and</em> a statistically
-        significant—if modest—shift toward less-negative headline sentiment.
+        significant, if modest, shift toward less-negative headline sentiment.
       </p>
       <div className="takeaway-grid">
         <div className="takeaway-card green">
           <h3>What the data supports</h3>
           <ul className="data-list">
             <li>A sustained, multi-year rise in reported rape rates suggests a possible durable cultural shift in survivors' willingness to come forward.</li>
-            <li>A DiD using other violent crimes as the control finds rape reporting rose +5.7 per 100k more than contemporaneous trends in murder, robbery, and aggravated assault would predict (p &lt; 0.001) — the strongest causal evidence in this analysis.</li>
+            <li>A DiD using other violent crimes as the control finds rape reporting rose +5.7 per 100k more than contemporaneous trends in murder, robbery, and aggravated assault would predict (p &lt; 0.001) , the strongest causal evidence in this analysis.</li>
             <li>Both VADER and LLM methods independently agree: headline framing became measurably less negative after October 2017.</li>
             <li>The shift plausibly reflects more headlines emphasizing accountability and survivor testimony rather than a change in subject matter.</li>
-            <li>Effect sizes are small to moderate (r = 0.24 VADER, r = 0.14 LLM) — statistically significant, but modest in absolute terms.</li>
+            <li>Effect sizes are small to moderate (r = 0.24 VADER, r = 0.14 LLM) , statistically significant, but modest in absolute terms.</li>
           </ul>
         </div>
         <div className="takeaway-card amber">
           <h3>What remains uncertain</h3>
           <ul className="data-list">
-            <li>All findings are <strong>correlational</strong> — the data cannot establish that #MeToo caused these changes.</li>
-            <li>Absolute sentiment remained substantially negative throughout — coverage of trauma cannot be made "positive" by a cultural moment.</li>
+            <li>All findings are <strong>correlational</strong> , the data cannot establish that #MeToo caused these changes.</li>
+            <li>Absolute sentiment remained substantially negative throughout , coverage of trauma cannot be made "positive" by a cultural moment.</li>
             <li>The DiD design cannot fully rule out confounders coincident with October 2017 (e.g., Title IX policy changes); the estimate is consistent but not definitively causal.</li>
             <li>UCR captures reported crimes only; 70–80% of rapes are estimated to go unreported entirely.</li>
           </ul>
